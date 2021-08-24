@@ -1,0 +1,20 @@
+.card {
+  margin: 5% auto;
+  overflow: auto;
+  max-width: 70%;
+  min-height: 40%;
+}
+.signup-image {
+  object-fit: contain;
+  height: 100%;
+  border-radius: 2%;
+}
+.login-form {
+  min-width: 300px;
+}
+.login-matField {
+  width: 100%;
+}
+.submit-button {
+  width: 30%;
+}

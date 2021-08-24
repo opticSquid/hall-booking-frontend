@@ -7,13 +7,19 @@
       <mat-grid-tile>
         <div>
           <div class="mat-headline">Login</div>
-          <form class="form-control login-form">
+          <form class="form-control login-form" (ngSubmit)="onSubmit()">
             <mat-form-field
               appearance="outline"
               class="form-group login-matField"
             >
               <mat-label for="Email">Email</mat-label>
-              <input matInput id="Email" type="email" name="email" />
+              <input
+                matInput
+                id="Email"
+                type="email"
+                name="email"
+                [(ngModel)]="email"
+              />
             </mat-form-field>
             <pre></pre>
             <mat-form-field
@@ -21,9 +27,20 @@
               class="form-group login-matField"
             >
               <mat-label for="Password">Password</mat-label>
-              <input matInput id="Password" type="password" name="password" />
+              <input
+                matInput
+                id="Password"
+                type="password"
+                name="password"
+                [(ngModel)]="pass"
+              />
             </mat-form-field>
-            <button mat-raised-button color="primary" class="submit-button">
+            <button
+              mat-raised-button
+              color="primary"
+              class="submit-button"
+              type="submit"
+            >
               Submit
             </button>
           </form>

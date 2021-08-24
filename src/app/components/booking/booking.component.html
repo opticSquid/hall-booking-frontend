@@ -1,0 +1,55 @@
+<mat-grid-list cols="2" rowHeight="1:0.7">
+  <mat-grid-tile>
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Enter the date and time of Event</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+          <form>
+            <mat-form-field class="example-form-field" appearance="fill">
+              <mat-label>Enter Date Range</mat-label>
+              <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="Start date"
+                  formControlName="start"
+                />
+                <input
+                  matEndDate
+                  placeholder="End date"
+                  formControlName="end"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error
+                *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+              >
+                Invalid start date
+              </mat-error>
+              <mat-error
+                *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+              >
+                Invalid end date
+              </mat-error>
+            </mat-form-field>
+            <pre></pre>
+            <button mat-raised-button color="accent" type="submit">
+              Submit
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <img [src]="imagePath" alt="booking-image" class="BookingImage" />
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="mat-display-1">Available Places</div>
+  </mat-grid-tile>
+</mat-grid-list>

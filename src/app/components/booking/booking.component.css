@@ -1,0 +1,7 @@
+.BookingImage {
+  object-fit: contain;
+  height: 90%;
+}
+.card-content {
+  text-align: center;
+}
