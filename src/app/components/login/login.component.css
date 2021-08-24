@@ -9,3 +9,12 @@
   height: 100%;
   border-radius: 2%;
 }
+.login-form {
+  min-width: 300px;
+}
+.login-matField {
+  width: 100%;
+}
+.submit-button{
+  width: 30%;
+}

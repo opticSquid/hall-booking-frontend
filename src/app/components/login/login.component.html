@@ -1,8 +1,34 @@
-<mat-card class="card" [class.mat-elevation-z6]="true">
-  <mat-grid-list cols="2" rowHeight="1:1">
-    <mat-grid-tile>
-      <img [src]="imagePath" class="login-image" />
-    </mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-  </mat-grid-list>
-</mat-card>
+<div class="container">
+  <mat-card class="card" [class.mat-elevation-z6]="true">
+    <mat-grid-list cols="2" rowHeight="1:1">
+      <mat-grid-tile>
+        <img [src]="imagePath" class="login-image" />
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div>
+          <div class="mat-headline">Login</div>
+          <form class="form-control login-form">
+            <mat-form-field
+              appearance="outline"
+              class="form-group login-matField"
+            >
+              <mat-label for="Email">Email</mat-label>
+              <input matInput id="Email" type="email" name="email" />
+            </mat-form-field>
+            <pre></pre>
+            <mat-form-field
+              appearance="outline"
+              class="form-group login-matField"
+            >
+              <mat-label for="Password">Password</mat-label>
+              <input matInput id="Password" type="password" name="password" />
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="submit-button">
+              Submit
+            </button>
+          </form>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>
