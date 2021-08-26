@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../../LoginTemplate';
+import { DbService } from '../../services/db.service';
+import {UserExist} from "../../UserExist";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +12,7 @@ export class LoginComponent implements OnInit {
   email!: string;
   pass!: string;
 
-  constructor() {
+  constructor(private auth: DbService) {
     this.imagePath = '/assets/Punjabi.jpg';
   }
 
@@ -25,5 +27,21 @@ export class LoginComponent implements OnInit {
       password: this.pass,
     };
     console.log('form Submitted', newLogin);
+    this.auth.login(newLogin).subscribe(
+      (data:UserExist) => {
+        console.log(data);
+        localStorage.setItem('Name',data.Name);
+        localStorage.setItem('Token',data.Token);
+        localStorage.setItem('Role',data.Role);
+        localStorage.setItem('response',data.response);
+      },
+      (err) => {
+        console.log(err);
+        alert("Login Failed enter correct email and password");
+      },
+      () => {
+        console.log('completed');
+      }
+    );
   }
 }

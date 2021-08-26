@@ -5,6 +5,7 @@ import { HeroImageComponent } from './components/hero-image/hero-image.component
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { AuthGuard } from './services/auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -12,7 +13,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'booking', component: BookingComponent },
+  { path: 'booking', component: BookingComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
