@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if (
       localStorage.getItem('Token') &&
-      (localStorage.getItem('Role') === 'user' || 'admin')
+      (localStorage.getItem('Role') === 'user')
     ) {
       return true;
     } else {

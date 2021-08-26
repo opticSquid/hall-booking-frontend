@@ -11,6 +11,7 @@ import { HeroImageComponent } from './components/hero-image/hero-image.component
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BookingComponent } from './components/booking/booking.component';
     LoginComponent,
     SignupComponent,
     BookingComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
