@@ -5,3 +5,12 @@
 .card-content {
   text-align: center;
 }
+.result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-button {
+  display: flex;
+  justify-content: space-between;
+}

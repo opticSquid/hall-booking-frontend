@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignUp } from '../../SignupTemplate';
+import { DbService } from 'src/app/services/db.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -12,7 +14,7 @@ export class SignupComponent implements OnInit {
   password!: string;
   verifyPass!: string;
   role: string = 'user';
-  constructor() {
+  constructor(private db: DbService, private router: Router) {
     this.imagePath = '/assets/takla.jpg';
   }
 
@@ -32,7 +34,19 @@ export class SignupComponent implements OnInit {
         password: this.password,
         role: this.role,
       };
-      console.log(signUp);
+      this.db.signUp(signUp).subscribe(
+        (response) => {
+          console.log('Signup successful', response);
+          alert(response.status);
+          this.router.navigate(['']);
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          console.log('Signup complete');
+        }
+      );
     }
   }
 }
