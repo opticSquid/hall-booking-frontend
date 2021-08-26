@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-
+import { CanActivate } from '@angular/router';
+import { Router } from '@angular/router';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+  constructor(private route: Router) {}
+  canActivate(): boolean {
+    if (
+      localStorage.getItem('Token') &&
+      localStorage.getItem('Role') === 'admin' &&
+      localStorage.getItem('Name') === 'Raj Chetri'
+    ) {
+      return true;
+    } else {
+      this.route.navigate(['']);
+      return false;
+    }
   }
-  
 }

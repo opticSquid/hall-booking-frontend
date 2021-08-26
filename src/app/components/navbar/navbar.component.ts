@@ -21,6 +21,9 @@ export class NavbarComponent implements OnInit {
         console.log('User logged out: ', data);
         alert('user logged out');
         localStorage.removeItem('Token');
+        localStorage.removeItem('Name');
+        localStorage.removeItem('Role');
+        localStorage.removeItem('response');
         this.router.navigate(['']);
       },
       (err) => {

@@ -4,16 +4,17 @@ import { Observable } from 'rxjs';
 import { UserExist } from '../UserExist';
 import { SignUp } from '../SignupTemplate';
 import { Login } from '../LoginTemplate';
+import { Hall } from '../Hall';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
   }),
 };
-let token:string= localStorage.getItem('Token')||'';
+let token: string = localStorage.getItem('Token') || '';
 const tokenOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'token': token,
+    token: token,
   }),
 };
 @Injectable({
@@ -36,6 +37,9 @@ export class DbService {
   }
 
   logout(): Observable<any> {
-    return this.http.delete<any>(`${this.apiURI}/logout`,tokenOptions);
+    return this.http.delete<any>(`${this.apiURI}/logout`, tokenOptions);
+  }
+  createHalls(data: Hall): Observable<any> {
+    return this.http.post<any>(`${this.apiURI}/createHalls`, data, httpOptions);
   }
 }
