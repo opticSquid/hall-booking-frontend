@@ -15,8 +15,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DbService {
-  //private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
-  private apiURI: string = 'http://localhost:5000';
+  private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
+  //private apiURI: string = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
   signUp(user: SignUp): Observable<any> {
