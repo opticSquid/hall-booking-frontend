@@ -11,18 +11,12 @@ const httpOptions = {
     'Content-Type': 'application/json',
   }),
 };
-let token: string = localStorage.getItem('Token') || '';
-const tokenOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    token: token,
-  }),
-};
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
+  //private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
+  private apiURI: string = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
   signUp(user: SignUp): Observable<any> {
@@ -33,8 +27,13 @@ export class DbService {
     return this.http.post<UserExist>(`${this.apiURI}/login`, user, httpOptions);
   }
 
-  logout(): Observable<any> {
-    return this.http.delete<any>(`${this.apiURI}/logout`, tokenOptions);
+  logout(token: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiURI}/logout`, {
+      headers: new HttpHeaders({
+        token: token,
+        'Content-Type': 'application/json',
+      }),
+    });
   }
   createHalls(data: Hall): Observable<any> {
     return this.http.post<any>(`${this.apiURI}/createHalls`, data, httpOptions);
@@ -50,6 +49,11 @@ export class DbService {
     );
   }
   createBooking(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiURI}/createBooking`, data, tokenOptions);
+    return this.http.post<any>(`${this.apiURI}/createBooking`, data, {
+      headers: new HttpHeaders({
+        token: data.token,
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 }

@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { GetHalls } from 'src/app/getHalls';
 import { DbService } from '../../services/db.service';
 import { HallOutput } from 'src/app/getHalls';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -16,7 +17,7 @@ export class BookingComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl(),
   });
-  constructor(private db: DbService) {
+  constructor(private db: DbService, private router: Router) {
     this.imagePath = '/assets/booking.png';
   }
 
@@ -44,6 +45,7 @@ export class BookingComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log('data incoming: ', data);
+          this.Halls = data.data;
         },
         (err) => {
           console.log('error: ', err);
@@ -54,16 +56,25 @@ export class BookingComponent implements OnInit {
       );
   }
   book(hall: any): void {
-    this.db.createBooking(hall).subscribe(
-      (data) => {
-        console.log('data: ', data);
-      },
-      (err) => {
-        console.log('error: ', err);
-      },
-      () => {
-        console.log('completed');
-      }
-    );
+    hall.token = localStorage.getItem('Token');
+    if (!this.range.value.start || !this.range.value.end) {
+      alert('Enter starting and ending dates');
+    } else {
+      hall.start_date = this.range.value.start;
+      hall.end_date = this.range.value.end;
+      this.db.createBooking(hall).subscribe(
+        (data) => {
+          console.log('data: ', data);
+          alert(`${hall.Name} has been booked for you`);
+          this.router.navigate(['']);
+        },
+        (err) => {
+          console.log('error: ', err);
+        },
+        () => {
+          console.log('completed');
+        }
+      );
+    }
   }
 }

@@ -16,7 +16,8 @@ export class NavbarComponent implements OnInit {
     return this.router.url !== this.hide_route;
   }
   logout(): void {
-    this.auth.logout().subscribe(
+    let token = localStorage.getItem('Token');
+    this.auth.logout(token).subscribe(
       (data) => {
         console.log('User logged out: ', data);
         alert('user logged out');
