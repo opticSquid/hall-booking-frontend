@@ -22,7 +22,7 @@ const tokenOptions = {
   providedIn: 'root',
 })
 export class DbService {
-  private apiURI: string = 'http://localhost:5000';
+  private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
 
   constructor(private http: HttpClient) {}
   signUp(user: SignUp): Observable<any> {
@@ -48,5 +48,8 @@ export class DbService {
       data,
       httpOptions
     );
+  }
+  createBooking(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiURI}/createBooking`, data, tokenOptions);
   }
 }

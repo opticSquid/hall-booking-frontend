@@ -78,7 +78,7 @@
         </div>
       </mat-card-content>
       <mat-card-actions class="action-button">
-        <button mat-raised-button color="primary" [disabled]="disabled">
+        <button mat-raised-button color="primary" [disabled]="disabled" (click)="book(hall)" >
           Book
         </button>
         <button mat-stroked-button color="warn">

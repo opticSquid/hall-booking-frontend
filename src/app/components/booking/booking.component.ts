@@ -53,4 +53,17 @@ export class BookingComponent implements OnInit {
         }
       );
   }
+  book(hall: any): void {
+    this.db.createBooking(hall).subscribe(
+      (data) => {
+        console.log('data: ', data);
+      },
+      (err) => {
+        console.log('error: ', err);
+      },
+      () => {
+        console.log('completed');
+      }
+    );
+  }
 }
