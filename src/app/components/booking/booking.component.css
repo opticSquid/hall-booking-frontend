@@ -14,3 +14,7 @@
   display: flex;
   justify-content: space-between;
 }
+.user-booking-action-button {
+  display: flex;
+  justify-content: center;
+}

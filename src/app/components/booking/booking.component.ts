@@ -4,6 +4,7 @@ import { GetHalls } from 'src/app/getHalls';
 import { DbService } from '../../services/db.service';
 import { HallOutput } from 'src/app/getHalls';
 import { Router } from '@angular/router';
+import { Booking } from 'src/app/Booking';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -12,11 +13,14 @@ import { Router } from '@angular/router';
 export class BookingComponent implements OnInit {
   imagePath: string;
   Halls: HallOutput[] = [];
-  disabled: boolean = false;
+  userSearch: boolean = true;
+  userBooking: boolean = false;
+  Bookings: any = [];
   range: FormGroup = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
+  token: string | null = localStorage.getItem('Token');
   constructor(private db: DbService, private router: Router) {
     this.imagePath = '/assets/booking.png';
   }
@@ -34,8 +38,31 @@ export class BookingComponent implements OnInit {
         console.log('Fetching halls completed');
       }
     );
+    this.db.getBookingByUser(this.token).subscribe(
+      (data: any) => {
+        let response = data.response;
+        this.Bookings = response;
+
+        console.log('All Halls Data: ', this.Bookings);
+      },
+      (err) => {
+        console.log('error: ', err);
+      },
+      () => {
+        let booking;
+        for (booking of this.Bookings) {
+          booking.start_date = booking.start_date.split('T')[0];
+          booking.end_date = booking.end_date.split('T')[0];
+        }
+
+        console.log('completed');
+        console.log('Booking data: ', this.Bookings);
+      }
+    );
   }
   search_date(): void {
+    this.userBooking = false;
+    this.userSearch = true;
     console.log('search_date: ', this.range.value.start, this.range.value.end);
     this.db
       .sendSearchData({
@@ -45,7 +72,10 @@ export class BookingComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log('data incoming: ', data);
-          this.Halls = data.data;
+          console.log('lngth of data: ', data.data.length);
+          if (data.data.length > 0) {
+            this.Halls = data.data;
+          }
         },
         (err) => {
           console.log('error: ', err);
@@ -76,5 +106,26 @@ export class BookingComponent implements OnInit {
         }
       );
     }
+  }
+  your_bookings(): void {
+    this.userSearch = false;
+    this.userBooking = true;
+  }
+  delete_book(booking: any): void {
+    booking.token = localStorage.getItem('Token');
+    console.log('Booking', booking);
+    this.db.deleteBooking(booking).subscribe(
+      (data) => {
+        console.log('data: ', data);
+        alert(`${booking.Name} has been deleted`);
+        this.router.navigate(['']);
+      },
+      (err) => {
+        console.log('error: ', err);
+      },
+      () => {
+        console.log('completed');
+      }
+    );
   }
 }

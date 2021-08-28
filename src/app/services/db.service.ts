@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class DbService {
   private apiURI: string = 'https://stark-inlet-85258.herokuapp.com';
-  //private apiURI: string = 'http://localhost:5000';
+  // private apiURI: string = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
   signUp(user: SignUp): Observable<any> {
@@ -50,6 +50,23 @@ export class DbService {
   }
   createBooking(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiURI}/createBooking`, data, {
+      headers: new HttpHeaders({
+        token: data.token,
+        'Content-Type': 'application/json',
+      }),
+    });
+  }
+  getBookingByUser(data: any): Observable<any> {
+    console.log('token before sending to DB: ', data);
+    return this.http.get<any>(`${this.apiURI}/getBookingByUser`, {
+      headers: new HttpHeaders({
+        token: data,
+        'Content-Type': 'application/json',
+      }),
+    });
+  }
+  deleteBooking(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiURI}/deleteBooking`, data, {
       headers: new HttpHeaders({
         token: data.token,
         'Content-Type': 'application/json',

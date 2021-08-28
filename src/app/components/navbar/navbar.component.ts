@@ -9,7 +9,8 @@ import { DbService } from '../../services/db.service';
 export class NavbarComponent implements OnInit {
   elevate: Boolean = true;
   hide_route: string = '/login' || '/signup';
-  constructor(private auth: DbService, private router: Router) {}
+  constructor(private auth: DbService, private router: Router) {
+  }
 
   ngOnInit(): void {}
   hasRoute(): boolean {
