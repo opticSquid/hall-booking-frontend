@@ -8,13 +8,21 @@ import { DbService } from '../../services/db.service';
 })
 export class NavbarComponent implements OnInit {
   elevate: Boolean = true;
-  hide_route: string = '/login' || '/signup';
-  constructor(private auth: DbService, private router: Router) {
-  }
+  login_route: string = '/login';
+  signup_route: string = '/signup';
+  constructor(private auth: DbService, private router: Router) {}
 
   ngOnInit(): void {}
   hasRoute(): boolean {
-    return this.router.url !== this.hide_route;
+    let response: boolean = true;
+    if (this.router.url === this.login_route) {
+      response = false;
+    } else if (this.router.url === this.signup_route) {
+      response = false;
+    } else {
+      response = true;
+    }
+    return response;
   }
   logout(): void {
     let token = localStorage.getItem('Token');

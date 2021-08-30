@@ -2,11 +2,14 @@ mat-grid-list {
   background: #dce2fd;
 }
 .heroText {
-  margin-left: 1%;
+  text-align: center;
 }
 .primary {
   color: #3f51b5;
   flex: 1 1 auto;
+}
+.primary-mobile {
+  color: #3f51b5;
 }
 .secondary {
   color: rgb(129, 142, 197);

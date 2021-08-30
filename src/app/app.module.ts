@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroImageComponent } from './components/hero-image/hero-image.component';
@@ -31,6 +33,7 @@ import { AdminComponent } from './components/admin/admin.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    LayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

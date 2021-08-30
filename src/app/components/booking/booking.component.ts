@@ -5,6 +5,8 @@ import { DbService } from '../../services/db.service';
 import { HallOutput } from 'src/app/getHalls';
 import { Router } from '@angular/router';
 import { Booking } from 'src/app/Booking';
+import { LayoutService } from 'src/app/services/layout.service';
+import { CustomBreakpointNames } from 'src/app/services/breakpoints.service';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -16,16 +18,67 @@ export class BookingComponent implements OnInit {
   userSearch: boolean = true;
   userBooking: boolean = false;
   Bookings: any = [];
+  cols: string = '1';
+  isMobile: boolean = false;
+  isTablet: boolean = false;
+  isDesktop: boolean = false;
+  rowHeight: string = '1:0.3';
   range: FormGroup = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
   token: string | null = localStorage.getItem('Token');
-  constructor(private db: DbService, private router: Router) {
+  constructor(
+    private db: DbService,
+    private router: Router,
+    private layoutService: LayoutService
+  ) {
     this.imagePath = '/assets/booking.png';
   }
 
   ngOnInit(): void {
+    this.layoutService
+      .subscribeToLayoutChanges()
+      .subscribe((observerResponse) => {
+        // You will have all matched breakpoints in observerResponse
+        console.log('Layout Observer response', observerResponse);
+        if (
+          this.layoutService.isBreakpointActive(CustomBreakpointNames.xSmall)
+        ) {
+          // Do something here for Moto G4, Galaxy S5, Pixel 2, Pixel 2 XL, iphone5/SE, iphone6/7/8 plus, iphone X, Surface Duo, Galaxy Fold devices
+          this.cols = '1';
+          this.isMobile = true;
+          this.isDesktop = false;
+          this.rowHeight = '1:0.5';
+          console.log('Mobile phones', this.isMobile);
+        } else if (
+          this.layoutService.isBreakpointActive(CustomBreakpointNames.small)
+        ) {
+          this.cols = '1';
+          this.isMobile = true;
+          this.isDesktop = false;
+          this.rowHeight = '1:0.5';
+          console.log('Mobile phones', this.isMobile);
+        } else if (
+          this.layoutService.isBreakpointActive(CustomBreakpointNames.medium)
+        ) {
+          this.cols = '1';
+          this.isMobile = true;
+          this.isDesktop = false;
+          this.rowHeight = '1:0.5';
+          console.log('Mobile phones', this.isMobile);
+        } else {
+          this.cols = '2';
+          this.isDesktop = true;
+          this.isMobile = false;
+          this.rowHeight = '1:0.3';
+          console.log('Desktop', this.isDesktop);
+        }
+      });
+    this.getAllHalls();
+    this.getBookingsbyUser();
+  }
+  getAllHalls(): void {
     this.db.getHalls().subscribe(
       (data: GetHalls) => {
         this.Halls = data.halls;
@@ -38,6 +91,8 @@ export class BookingComponent implements OnInit {
         console.log('Fetching halls completed');
       }
     );
+  }
+  getBookingsbyUser(): void {
     this.db.getBookingByUser(this.token).subscribe(
       (data: any) => {
         let response = data.response;

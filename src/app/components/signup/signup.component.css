@@ -1,8 +1,14 @@
 .card {
-  margin: 5% auto;
+  margin: 3% auto;
   overflow: auto;
   max-width: 70%;
-  min-height: 40%;
+  min-height: max-content;
+}
+.card-mobile {
+  margin: 2% auto;
+  overflow: auto;
+  max-width: 70%;
+  min-height: max-content;
 }
 .signup-image {
   object-fit: contain;
@@ -15,6 +21,22 @@
 .login-matField {
   width: 100%;
 }
+.login-form-mobile {
+  min-width: 100%;
+}
 .submit-button {
   width: 30%;
+}
+.headline-mobile {
+  padding-top: 5%;
+  text-align: center;
+}
+.submit-button-mobile {
+  width: 100%;
+  justify-content: center;
+}
+.signup-link {
+  padding-bottom: 5%;
+  padding-top: 5%;
+  text-align: center;
 }

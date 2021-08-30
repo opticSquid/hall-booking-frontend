@@ -1,13 +1,29 @@
 <div class="container">
-  <mat-card class="card" [class.mat-elevation-z6]="true">
-    <mat-grid-list cols="2" rowHeight="1:1">
+  <mat-card
+    [ngClass]="{ card: isDesktop, 'card-mobile': isMobile }"
+    [class.mat-elevation-z6]="true"
+  >
+    <mat-grid-list [cols]="cols" [rowHeight]="rowHeight">
       <mat-grid-tile>
         <img [src]="imagePath" class="signup-image" />
       </mat-grid-tile>
       <mat-grid-tile>
         <div>
-          <div class="mat-headline">Signup</div>
-          <form class="form-control login-form" (ngSubmit)="onSubmit()">
+          <div
+            [ngClass]="{
+              'mat-headline headline': isDesktop,
+              'mat-headline headline-mobile': isMobile
+            }"
+          >
+            Signup
+          </div>
+          <form
+            [ngClass]="{
+              'form-control login-form': isDesktop,
+              'form-control login-form-mobile': isMobile
+            }"
+            (ngSubmit)="onSubmit()"
+          >
             <mat-form-field
               appearance="outline"
               class="form-group login-matField"
@@ -69,13 +85,20 @@
             <button
               mat-raised-button
               color="primary"
-              class="submit-button"
+              [ngClass]="{
+                'submit-button': isDesktop,
+                'submit-button-mobile': isMobile
+              }"
               type="submit"
             >
               Submit
             </button>
           </form>
-          <a routerLink="/login">Have an account? Login</a>
+          <a routerLink="/login">
+            <div [ngClass]="{ 'signup-link': isMobile }">
+              Have an account? Login
+            </div></a
+          >
         </div>
       </mat-grid-tile>
     </mat-grid-list>

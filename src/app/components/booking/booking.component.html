@@ -1,4 +1,4 @@
-<mat-grid-list cols="2" rowHeight="1:0.7">
+<mat-grid-list [cols]="cols" rowHeight="1:0.7">
   <mat-grid-tile>
     <div>
       <mat-card [class.mat-elevation-z4]="true">
@@ -60,7 +60,7 @@
   <mat-icon> list </mat-icon>
 </div>
 <!--User Search-->
-<mat-grid-list cols="2" rowHeight="1:0.3" *ngIf="userSearch">
+<mat-grid-list [cols]="cols" [rowHeight]="rowHeight" *ngIf="userSearch">
   <mat-grid-tile *ngFor="let hall of Halls">
     <mat-card [class.mat-elevation-z3]="true">
       <mat-card-header>
